@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ahmetcevikvalorant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#8e44ad',
+secondary: '#e74c3c',
+neon: {
+pink: '#ff00ff',
+blue: '#00ffff',
+green: '#00ff00',
+yellow: '#ffff00'
+},
+dark: '#121212',
+darker: '#0a0a0a'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+},
+animation: {
+'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+'glow': 'glow 2s ease-in-out infinite alternate',
+'border-flow': 'border-flow 2s linear infinite',
+'float': 'float 3s ease-in-out infinite',
+'gradient-x': 'gradient-x 15s ease infinite',
+'spin-slow': 'spin 3s linear infinite'
+},
+keyframes: {
+glow: {
+'0%': { textShadow: '0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6' },
+'100%': { textShadow: '0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6' }
+},
+'border-flow': {
+'0%': { backgroundPosition: '0% 0%' },
+'100%': { backgroundPosition: '100% 0%' }
+},
+float: {
+'0%, 100%': { transform: 'translateY(0)' },
+'50%': { transform: 'translateY(-10px)' }
+},
+'gradient-x': {
+'0%, 100%': {
+backgroundSize: '200% 200%',
+backgroundPosition: 'left center'
+},
+'50%': {
+backgroundSize: '200% 200%',
+backgroundPosition: 'right center'
+}
+}
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+background-color: #0a0a0a;
+color: #ffffff;
+font-family: 'Plus Jakarta Sans', sans-serif;
+overflow-x: hidden;
+}
+.glass-effect {
+background: rgba(255, 255, 255, 0.03);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.text-gradient {
+background: linear-gradient(90deg, #8e44ad, #e74c3c);
+-webkit-background-clip: text;
+background-clip: text;
+color: transparent;
+}
+.border-gradient {
+position: relative;
+}
+.border-gradient::after {
+content: '';
+position: absolute;
+inset: 0;
+border-radius: inherit;
+padding: 1px;
+background: linear-gradient(90deg, #8e44ad, #e74c3c);
+mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+-webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+mask-composite: exclude;
+-webkit-mask-composite: xor;
+}
+.rgb-gradient {
+background: linear-gradient(90deg, #ff00ff, #00ffff, #00ff00, #ffff00, #ff00ff);
+background-size: 400% 400%;
+animation: gradient-x 15s ease infinite;
+}
+.loading-screen {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #0a0a0a;
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+.rgb-dot {
+  background: linear-gradient(to right, red, lime, blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300% 300%;
+  animation: gradientMove 5s ease infinite;
+}
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+.loading-spinner {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+border: 4px solid rgba(255, 255, 255, 0.1);
+border-top-color: #8e44ad;
+animation: spin 1s linear infinite;
+}
+.product-slider {
+scrollbar-width: none;
+}
+.product-slider::-webkit-scrollbar {
+display: none;
+}
+.modal {
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.modal.active {
+opacity: 1;
+visibility: visible;
+}
+.modal-content {
+transform: scale(0.9);
+transition: transform 0.3s ease;
+}
+.modal.active .modal-content {
+transform: scale(1);
+}
+.faq-item-content {
+max-height: 0;
+overflow: hidden;
+transition: max-height 0.3s ease;
+}
+.faq-item.active .faq-item-content {
+max-height: 500px;
+}
+@keyframes spin {
+to { transform: rotate(360deg); }
+}
+@keyframes glow {
+0% { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6; }
+100% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6; }
+}
+@keyframes border-flow {
+0% { background-position: 0% 0%; }
+100% { background-position: 400% 0%; }
+}
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+@keyframes gradient-x {
+0%, 100% {
+background-position: 0% 50%;
+}
+50% {
+background-position: 100% 50%;
+}
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type="number"] {
+-moz-appearance: textfield;
+}
+/* Custom radio button */
+.custom-radio {
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-radio input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+}
+.radio-checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #1a1a1a;
+border: 2px solid #8e44ad;
+border-radius: 50%;
+transition: all 0.2s ease;
+}
+.custom-radio:hover .radio-checkmark {
+border-color: #a855f7;
+}
+.custom-radio input:checked ~ .radio-checkmark {
+background-color: #1a1a1a;
+border-color: #8e44ad;
+}
+.radio-checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-radio input:checked ~ .radio-checkmark:after {
+display: block;
+}
+.custom-radio .radio-checkmark:after {
+top: 3px;
+left: 3px;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background: #8e44ad;
+box-shadow: 0 0 5px #8e44ad;
+}
+</style>
+</head>
+<body>
+<!-- Loading Screen -->
+<div class="loading-screen" id="loadingScreen">
+<div class="flex flex-col items-center justify-center min-h-screen">
+<div class="relative w-64 h-2 bg-darker rounded-full overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-r from-primary via-secondary to-primary animate-loading-bar"></div>
+</div>
+</div>
+</div>
+<style>
+@keyframes loading-bar {
+0% {
+transform: translateX(-100%);
+}
+100% {
+transform: translateX(300%);
+}
+}
+.animate-loading-bar {
+animation: loading-bar 1.5s ease-in-out infinite;
+}
+</style>
+<style>
+@keyframes ellipsis {
+0% { content: '.'; }
+33% { content: '..'; }
+66% { content: '...'; }
+100% { content: '.'; }
+}
+</style>
+<!-- Header -->
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-darker/50 backdrop-blur-md" id="mainHeader">
+<div class="relative">
+<div class="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-primary via-secondary to-primary animate-gradient-x"></div>
+<div class="absolute -top-1 left-0 w-full h-[2px] bg-gradient-to-r from-primary via-secondary to-primary animate-gradient-x"></div>
+</div>
+<div class="container mx-auto px-4">
+<div class="flex items-center justify-center h-20 transition-all duration-300" id="navContainer">
+  <a href="#"
+     class="absolute left-4 text-4xl font-['Poppins'] text-white transition-all duration-300">
+    ahmetcevikvalorant<span class="rgb-dot text-6xl">.</span>
+  </a>
+<nav class="hidden md:flex items-center gap-1 bg-darker/50 backdrop-blur-md px-2 py-1 rounded-full border border-white/5">
+<a href="#home" class="relative px-4 py-2 text-white hover:text-primary group transition-all duration-300 rounded-full hover:bg-white/5">
+Ana Sayfa
+<span class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
+</a>
+<a href="#products" class="relative px-4 py-2 text-white hover:text-primary group transition-all duration-300 rounded-full hover:bg-white/5">
+Ürünler
+<span class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
+</a>
+<a href="#faq" class="relative px-4 py-2 text-white hover:text-primary group transition-all duration-300 rounded-full hover:bg-white/5">
+SSS
+<span class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
+</a>
+<a href="#testimonials" class="relative px-4 py-2 text-white hover:text-primary group transition-all duration-300 rounded-full hover:bg-white/5">
+Yorumlar
+<span class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
+</a>
+<a href="#contact" class="relative px-4 py-2 text-white hover:text-primary group transition-all duration-300 rounded-full hover:bg-white/5">
+İletişim
+<span class="absolute bottom-0 left-0 w-full h-full bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300"></span>
+</a>
+</nav>
+<button class="absolute right-4 w-10 h-10 flex items-center justify-center text-white hover:text-primary transition-colors md:hidden" id="mobileMenuBtn">
+<i class="ri-menu-line ri-lg"></i>
+</button>
+</div>
+</div>
+</header>
+<!-- Mobile Menu -->
+<div class="md:hidden fixed w-full left-0 top-[80px] transform -translate-y-full transition-transform duration-300 z-40" id="mobileMenu">
+<div class="bg-darker/95 backdrop-blur-md border-t border-b border-white/5">
+<div class="container mx-auto px-4 py-2">
+<nav class="flex flex-col space-y-1 py-3">
+<a href="#home" class="text-white hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5">Ana Sayfa</a>
+<a href="#products" class="text-white hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5">Ürünler</a>
+<a href="#faq" class="text-white hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5">SSS</a>
+<a href="#testimonials" class="text-white hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5">Yorumlar</a>
+<a href="#contact" class="text-white hover:text-primary transition-colors py-2 px-4 rounded-lg hover:bg-white/5">İletişim</a>
+</nav>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section id="home" class="relative min-h-screen pt-16 flex items-center" style="background-image: url('https://r2.fakecrime.bio/uploads/b834c11f-d49b-48d4-8b55-0fb0eb2dc521.jpeg'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-gradient-to-r from-darker via-dark/80 to-transparent"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="w-full max-w-2xl">
+<div class="mb-2 inline-block">
+<span class="bg-primary px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white !rounded-button">Premium</span>
+</div>
+<h1 class="text-5xl md:text-6xl font-bold mb-4 text-white leading-tight">
+Oyun Deneyiminizi <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink via-neon-blue to-neon-green animate-gradient-x">Bir Üst Seviyeye</span> Taşıyın
+</h1>
+<p class="text-lg md:text-xl text-gray-300 mb-8">
+🎮 Merhaba! Ben Ahmet Çevik, uzun süredir Valorant hesap alım-satımı yapıyorum. Şu ana kadar 400+ başarılı işlem gerçekleştirdim, %100 müşteri memnuniyeti ile çalışıyorum. ✅ Satışlarım tamamen güvenlidir. ✅ Her hesap detaylı kontrol edilerek teslim edilir. ✅ Alıcı ve satıcı haklarını koruyarak işlemleri tamamlıyorum. Hesap satın almak ya da sormak istediğiniz bir şey olursa bana her zaman ulaşabilirsiniz.
+</p>
+<div class="flex flex-wrap gap-4">
+<a href="#products" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 !rounded-button transition-all shadow-lg shadow-primary/20 whitespace-nowrap">
+Ürünleri Keşfet
+</a>
+<a href="#faq" class="bg-transparent border-2 border-white/30 hover:border-white/60 text-white font-bold py-3 px-8 !rounded-button transition-all whitespace-nowrap">
+Daha Fazla Bilgi
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Products Section -->
+
+<!-- Features Section -->
+<section class="py-20 bg-dark">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4 inline-block relative">
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-blue to-neon-green">Neden Bizi Tercih Etmelisiniz?</span>
+<span class="absolute -bottom-2 left-0 w-full h-1 rgb-gradient"></span>
+</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">
+Yıllardır sektörde lider konumda olan ekibimiz, en güvenli ve etkili hile çözümlerini sunmak için sürekli çalışmaktadır.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Feature 1 -->
+<div class="bg-darker p-6 rounded-lg border border-gray-800 shadow-lg hover:shadow-primary/10 transition-all">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-shield-check-line ri-xl text-primary"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">Tespit Edilemez</h3>
+<p class="text-gray-400">
+Gelişmiş anti-tespit teknolojimiz sayesinde, hilelerimiz oyun içi güvenlik sistemleri tarafından tespit edilemez.
+</p>
+</div>
+<!-- Feature 2 -->
+<div class="bg-darker p-6 rounded-lg border border-gray-800 shadow-lg hover:shadow-primary/10 transition-all">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-customer-service-2-line ri-xl text-primary"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">7/24 Destek</h3>
+<p class="text-gray-400">
+Teknik ekibimiz, herhangi bir sorun yaşadığınızda size yardımcı olmak için her zaman hazırdır.
+</p>
+</div>
+<!-- Feature 3 -->
+<div class="bg-darker p-6 rounded-lg border border-gray-800 shadow-lg hover:shadow-primary/10 transition-all">
+<div class="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+<i class="ri-refresh-line ri-xl text-primary"></i>
+</div>
+<h3 class="text-xl font-bold mb-2">Düzenli Güncellemeler</h3>
+<p class="text-gray-400">
+Oyun güncellemeleri sonrası hilelerimizi hızla güncelliyoruz, böylece her zaman en son sürümü kullanabilirsiniz.
+</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section id="faq" class="py-20 bg-darker">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4 inline-block relative">
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-green to-neon-yellow">Sıkça Sorulan Sorular</span>
+<span class="absolute -bottom-2 left-0 w-full h-1 rgb-gradient"></span>
+</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">
+Ödeme Nasıl Oluyor ?
+Sen gönderdin 📌 İşleyiş sistemimiz nettir: İlk olarak ödeme alınır, ardından hesap teslim edilir. VP (Valorant Points) işlemlerinde de aynı mantık geçerlidir — önce ödeme, sonra teslimat. ✅ Bu işte 2. yılımız ve Discord ortamında uzun süredir tanınan, güvenilen bir ekip olarak hizmet veriyoruz. 🔐 Bugüne kadar +400 başarılı işlem gerçekleştirdik. 📸 Instagram sayfamızda da bazı güvenlerimiz   Ödeme Yöntemleri Nelerdir
+Papara,İninal,Tosla,İban  İade Politikası Nelerdir ?
+İade İçin Hesabın 1 Hafta İçinde Ban Yemesi Lazım.
+</p>
+</div>
+<div class="max-w-3xl mx-auto space-y-4">
+<!-- FAQ Item 1 -->
+<div class="faq-item bg-dark border border-gray-800 rounded-lg overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 flex justify-between items-center">
+<span class="text-lg font-medium">Hileleriniz tespit edilebilir mi?</span>
+<i class="ri-arrow-down-s-line ri-lg faq-icon transition-transform"></i>
+</button>
+<div class="faq-item-content px-6 pb-4">
+<p class="text-gray-400">
+Hayır, hilelerimiz özel olarak geliştirilmiş anti-tespit teknolojisi kullanır. Oyun içi güvenlik sistemleri tarafından tespit edilme riski minimum seviyededir. Ancak, her zaman makul kullanım önerilerimize uymanızı tavsiye ederiz.
+</p>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="faq-item bg-dark border border-gray-800 rounded-lg overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 flex justify-between items-center">
+<span class="text-lg font-medium">Satın aldıktan sonra nasıl kurulum yapacağım?</span>
+<i class="ri-arrow-down-s-line ri-lg faq-icon transition-transform"></i>
+</button>
+<div class="faq-item-content px-6 pb-4">
+<p class="text-gray-400">
+Satın alma işleminiz tamamlandıktan sonra, Discord sunucumuza otomatik olarak davet edileceksiniz. Orada size özel bir kanal açılacak ve detaylı kurulum talimatları paylaşılacaktır. Teknik ekibimiz, kurulum sırasında size yardımcı olmak için hazır olacaktır.
+</p>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="faq-item bg-dark border border-gray-800 rounded-lg overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 flex justify-between items-center">
+<span class="text-lg font-medium">Ödeme yöntemleriniz nelerdir?</span>
+<i class="ri-arrow-down-s-line ri-lg faq-icon transition-transform"></i>
+</button>
+<div class="faq-item-content px-6 pb-4">
+<p class="text-gray-400">
+Kredi kartı, banka havalesi, Bitcoin ve diğer popüler kripto para birimleri ile ödeme kabul ediyoruz. Tüm ödemeleriniz güvenli bir şekilde işlenir ve bilgileriniz kesinlikle gizli tutulur.
+</p>
+</div>
+</div>
+<!-- FAQ Item 4 -->
+<div class="faq-item bg-dark border border-gray-800 rounded-lg overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 flex justify-between items-center">
+<span class="text-lg font-medium">İade politikanız nedir?</span>
+<i class="ri-arrow-down-s-line ri-lg faq-icon transition-transform"></i>
+</button>
+<div class="faq-item-content px-6 pb-4">
+<p class="text-gray-400">
+Ürünlerimizin dijital doğası gereği, satın alma işlemi tamamlandıktan sonra iade kabul etmiyoruz. Ancak, ürün beklediğiniz gibi çalışmıyorsa veya teknik sorunlar yaşıyorsanız, 24 saat içinde destek ekibimizle iletişime geçmeniz durumunda sorununuzu çözmeye çalışacağız.
+</p>
+<p class="text-gray-400 mt-2">
+<a href="#" class="text-primary hover:underline" id="refundPolicyBtn">İade politikamız hakkında daha fazla bilgi için tıklayın.</a>
+</p>
+</div>
+</div>
+<!-- FAQ Item 5 -->
+<div class="faq-item bg-dark border border-gray-800 rounded-lg overflow-hidden">
+<button class="faq-toggle w-full px-6 py-4 flex justify-between items-center">
+<span class="text-lg font-medium">Hileleriniz tüm oyun sürümleriyle uyumlu mu?</span>
+<i class="ri-arrow-down-s-line ri-lg faq-icon transition-transform"></i>
+</button>
+<div class="faq-item-content px-6 pb-4">
+<p class="text-gray-400">
+Hilelerimiz, desteklediğimiz oyunların en son sürümleriyle uyumlu olacak şekilde düzenli olarak güncellenmektedir. Oyun güncellemeleri sonrasında kısa bir süre içinde hilelerimizi de güncelliyoruz. Özel bir oyun sürümü için destek gerekiyorsa, lütfen satın almadan önce bizimle iletişime geçin.
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-20 bg-dark">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4 inline-block relative">
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-yellow to-neon-pink">Müşteri Yorumları</span>
+<span class="absolute -bottom-2 left-0 w-full h-1 rgb-gradient"></span>
+</h2>
+<p class="text-gray-400 max-w-2xl mx-auto">
+Müşterilerimizin ürünlerimiz hakkındaki düşünceleri ve deneyimleri.
+</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Testimonial 1 -->
+<div class="bg-darker p-6 rounded-lg border border-gray-800 shadow-lg hover:shadow-primary/10 transition-all">
+  <div class="flex items-center mb-4">
+    <span class="text-sm text-gray-500">12 Haziran 2025</span>
+  </div>
+  <p class="text-gray-300 mb-4">
+    "Hesap aldım 2300 tl civarı mükemmel ucuz olmasına rağmen ilkte dolandırılıcağımı sandım ama hesap çok iyi"
+  </p>
+  <div class="flex items-center">
+    <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold">
+      ME
+    </div>
+    <div class="ml-3">
+      <h4 class="font-medium">Mehmet Eryılmaz</h4>
+      <p class="text-sm text-gray-500">Ahmet Cevik Müşterisi</p>
+    </div>
+  </div>
+</div>
+<!-- Testimonial 2 -->
+<div class="bg-darker p-6 rounded-lg border border-gray-800 shadow-lg hover:shadow-primary/10 transition-all">
+  <div class="flex items-center mb-4">
+    <span class="text-sm text-gray-500">8 Haziran 2025</span>
+  </div>
+  <p class="text-gray-300 mb-4">
+    "Hesabımı aldım ban sorunu vs. yaşamadım teşekkürler 1 aydır hesaptayım sorun yok."
+  </p>
+  <div class="flex items-center">
+    <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold">
+      AK
+    </div>
+    <div class="ml-3">
+      <h4 class="font-medium">Ayşe Kaya</h4>
+      <p class="text-sm text-gray-500">Ahmet Cevik Müşterisi</p>
+    </div>
+  </div>
+</div>
+<!-- Testimonial 3 -->
+<div class="bg-darker p-6 rounded-lg border border-gray-800 shadow-lg hover:shadow-primary/10 transition-all">
+  <div class="flex items-center mb-4">
+    <span class="text-sm text-gray-500">2 Haziran 2025</span>
+  </div>
+  <p class="text-gray-300 mb-4">
+    "VP Aldım kod olarak geldi hesabıma çektim direk güvenilirsiniz."
+  </p>
+  <div class="flex items-center">
+    <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary font-bold">
+      BY
+    </div>
+    <div class="ml-3">
+      <h4 class="font-medium">Burak Yılmaz</h4>
+      <p class="text-sm text-gray-500">Ahmet Cevik Müşterisi</p>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-darker relative overflow-hidden">
+<div class="absolute inset-0" style="background: linear-gradient(45deg, rgba(142, 68, 173, 0.2), rgba(231, 76, 60, 0.2)); opacity: 0.5;"></div>
+<div class="container mx-auto px-4 relative z-10">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-4xl font-bold mb-6 text-white">Hesabınızı Şimdi Satın Alın</h2>
+<p class="text-xl text-gray-300 mb-8">
+Daha iyi skinler için ahmetcevik valoranttan alışveriş yapın oyununuzun keyfine bakın.
+</p>
+<div class="flex flex-wrap justify-center gap-4">
+<a href="#products" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-8 !rounded-button transition-all shadow-lg shadow-primary/20 whitespace-nowrap">
+Hemen Satın Al
+</a>
+<a href="#" class="bg-transparent border-2 border-white/30 hover:border-white/60 text-white font-bold py-3 px-8 !rounded-button transition-all whitespace-nowrap" id="contactBtn">
+Bize Ulaşın
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer id="contact" class="bg-dark pt-16 pb-8 border-t border-gray-800">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<!-- Column 1 -->
+<div>
+<span class="text-3xl font-['Poppins'] text-white mb-4 inline-block">
+  ahmetcevikvalorant<span class="rgb-dot text-4xl">.</span>
+</span>
+<p class="text-gray-400 mb-6">
+2023'ten beri oyunculara hesap ve vp hizmeti sunuyoruz. Amacımız, daha iyi skinler hesaplar satabilmek.
+</p>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 bg-darker hover:bg-primary/20 rounded-full flex items-center justify-center text-white transition-colors">
+<i class="ri-discord-fill ri-lg"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-darker hover:bg-primary/20 rounded-full flex items-center justify-center text-white transition-colors">
+<i class="ri-telegram-fill ri-lg"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-darker hover:bg-primary/20 rounded-full flex items-center justify-center text-white transition-colors">
+<i class="ri-instagram-fill ri-lg"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-darker hover:bg-primary/20 rounded-full flex items-center justify-center text-white transition-colors">
+<i class="ri-youtube-fill ri-lg"></i>
+</a>
+</div>
+</div>
+<!-- Column 2 -->
+<div>
+<h3 class="text-lg font-bold mb-4">Hızlı Linkler</h3>
+<ul class="space-y-2">
+<li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">Ana Sayfa</a></li>
+<li><a href="#products" class="text-gray-400 hover:text-primary transition-colors">Ürünler</a></li>
+<li><a href="#faq" class="text-gray-400 hover:text-primary transition-colors">SSS</a></li>
+<li><a href="#testimonials" class="text-gray-400 hover:text-primary transition-colors">Yorumlar</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors" id="refundPolicyFooterBtn">İade Politikası</a></li>
+</ul>
+</div>
+<!-- Column 3 -->
+<div>
+<div class="text-white font-semibold"><a href="https://www.instagram.com/valoranthesapalsatahmetcevik/" target="_blank" class="bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 rounded-lg transition">Instagram</a></div>
+</div>
+<!-- Column 4 -->
+
+<div class="border-t border-gray-800 pt-8">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 text-sm mb-4 md:mb-0">
+&copy; 2025 ahmetcevikvalorant. Tüm hakları saklıdır.
+</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-500 hover:text-primary text-sm transition-colors" id="refundPolicyFooterBtn2">İade Politikası</a>
+</div>
+</div>
+<div class="mt-6 flex justify-center">
+<div class="flex space-x-4">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-visa-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-mastercard-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-bitcoin-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-ethereum-fill ri-lg text-gray-400"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<!-- Product Detail Modals -->
+<!-- Product 1 Modal -->
+<div id="product1Modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="product1Backdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeProduct1Modal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2">
+<div class="h-64 md:h-full overflow-hidden relative">
+<img src="https://r2.fakecrime.bio/uploads/8df8d9d0-cd3b-4fbb-9b31-6fcd5d5c2579.jpeg" alt="FPS Master" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent md:bg-gradient-to-r"></div>
+</div>
+</div>
+<div class="md:w-1/2 p-6 md:p-8">
+<span class="inline-block bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full mb-4">Premium</span>
+<h3 class="text-2xl font-bold mb-2">FPS Master</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="ml-2 text-sm text-gray-500">4.8/5 (256 değerlendirme)</span>
+</div>
+<p class="text-gray-400 mb-6">
+FPS Master, FPS oyunlarında rakiplerinize karşı büyük avantaj sağlayan gelişmiş bir hile paketidir. Aimbot, wallhack, recoil kontrolü ve daha fazlasını içerir.
+</p>
+<div class="mb-6">
+<h4 class="font-bold mb-2">Özellikler:</h4>
+<ul class="space-y-2 text-gray-400">
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Gelişmiş Aimbot (Baş, gövde veya bacak hedefleme seçeneği)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Wallhack (Duvarların arkasını görme)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Recoil Kontrolü (%100 hassasiyet)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>ESP (Düşman konumlarını, sağlık durumlarını ve silahlarını görme)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Radar Hack (Tüm oyuncuları mini haritada görme)</span>
+</li>
+</ul>
+</div>
+<div class="mb-6">
+<h4 class="font-bold mb-3">Paket Seçin:</h4>
+<div class="space-y-3">
+<label class="custom-radio block">
+<input type="radio" name="product1Package" value="7" checked>
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">7 Günlük Paket</span>
+<span class="font-bold text-primary">₺499</span>
+</div>
+<p class="text-sm text-gray-500">1 haftalık tam erişim</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product1Package" value="30">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">30 Günlük Paket</span>
+<span class="font-bold text-primary">₺1.299</span>
+</div>
+<p class="text-sm text-gray-500">1 aylık tam erişim (₺700 tasarruf)</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product1Package" value="90">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">90 Günlük Paket</span>
+<span class="font-bold text-primary">₺2.999</span>
+</div>
+<p class="text-sm text-gray-500">3 aylık tam erişim (₺2.500 tasarruf)</p>
+</div>
+</label>
+</div>
+</div>
+<a href="https://discord.gg/amınoğlucheats" target="_blank" class="block w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 !rounded-button transition-all text-center whitespace-nowrap">
+<i class="ri-shopping-cart-2-line ri-sm mr-1"></i> Hemen Satın Al
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Product 2 Modal -->
+<div id="product2Modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="product2Backdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeProduct2Modal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2">
+<div class="h-64 md:h-full overflow-hidden relative">
+<img src="https://r2.fakecrime.bio/uploads/960efcc2-63bd-4973-806d-f7f35df4c6d9.jpeg" alt="Battle Royale Pro" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent md:bg-gradient-to-r"></div>
+</div>
+</div>
+<div class="md:w-1/2 p-6 md:p-8">
+<span class="inline-block bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full mb-4">Premium</span>
+<h3 class="text-2xl font-bold mb-2">Battle Royale Pro</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+</div>
+<span class="ml-2 text-sm text-gray-500">5.0/5 (312 değerlendirme)</span>
+</div>
+<p class="text-gray-400 mb-6">
+Battle Royale Pro, battle royale oyunlarında rakiplerinize karşı üstünlük sağlayan gelişmiş bir hile paketidir. ESP, radar hack ve otomatik loot toplama özellikleri içerir.
+</p>
+<div class="mb-6">
+<h4 class="font-bold mb-2">Özellikler:</h4>
+<ul class="space-y-2 text-gray-400">
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>ESP (Oyuncuları, araçları ve değerli eşyaları duvarların arkasından görme)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Radar Hack (Tüm oyuncuları mini haritada görme)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Otomatik Loot (En iyi ekipmanları otomatik toplama)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>No Recoil (Silah geri tepmesini azaltma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Aim Assist (Hedef kilitleme yardımcısı)</span>
+</li>
+</ul>
+</div>
+<div class="mb-6">
+<h4 class="font-bold mb-3">Paket Seçin:</h4>
+<div class="space-y-3">
+<label class="custom-radio block">
+<input type="radio" name="product2Package" value="7" checked>
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">7 Günlük Paket</span>
+<span class="font-bold text-primary">₺599</span>
+</div>
+<p class="text-sm text-gray-500">1 haftalık tam erişim</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product2Package" value="30">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">30 Günlük Paket</span>
+<span class="font-bold text-primary">₺1.599</span>
+</div>
+<p class="text-sm text-gray-500">1 aylık tam erişim (₺800 tasarruf)</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product2Package" value="90">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">90 Günlük Paket</span>
+<span class="font-bold text-primary">₺3.599</span>
+</div>
+<p class="text-sm text-gray-500">3 aylık tam erişim (₺2.800 tasarruf)</p>
+</div>
+</label>
+</div>
+</div>
+<a href="https://discord.gg/amınoğlucheats" target="_blank" class="block w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 !rounded-button transition-all text-center whitespace-nowrap">
+<i class="ri-shopping-cart-2-line ri-sm mr-1"></i> Hemen Satın Al
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Product 3 Modal -->
+<div id="product3Modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="product3Backdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeProduct3Modal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2">
+<div class="h-64 md:h-full overflow-hidden relative">
+<img src="https://r2.fakecrime.bio/uploads/96ddf682-db9a-4a01-91df-d5b39d7ec067.jpeg" alt="MMORPG Bot" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent md:bg-gradient-to-r"></div>
+</div>
+</div>
+<div class="md:w-1/2 p-6 md:p-8">
+<span class="inline-block bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full mb-4">Premium</span>
+<h3 class="text-2xl font-bold mb-2">MMORPG Bot</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-line ri-sm"></i>
+</div>
+<span class="ml-2 text-sm text-gray-500">4.0/5 (178 değerlendirme)</span>
+</div>
+<p class="text-gray-400 mb-6">
+MMORPG Bot, MMORPG oyunlarında karakterinizi otomatik olarak geliştiren ve kaynak toplayan gelişmiş bir bot paketidir. Farming, savaş ve görev tamamlama özellikleri içerir.
+</p>
+<div class="mb-6">
+<h4 class="font-bold mb-2">Özellikler:</h4>
+<ul class="space-y-2 text-gray-400">
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Otomatik Farming (Kaynak toplama ve para kazanma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Otomatik Savaş (Düşmanlarla savaşma ve XP kazanma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Görev Tamamlama (Otomatik görev takibi ve tamamlama)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Çoklu Hesap Desteği (Aynı anda birden fazla hesap yönetimi)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Anti-AFK Sistemi (Otomatik hareket ve aktivite)</span>
+</li>
+</ul>
+</div>
+<div class="mb-6">
+<h4 class="font-bold mb-3">Paket Seçin:</h4>
+<div class="space-y-3">
+<label class="custom-radio block">
+<input type="radio" name="product3Package" value="7" checked>
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">7 Günlük Paket</span>
+<span class="font-bold text-primary">₺399</span>
+</div>
+<p class="text-sm text-gray-500">1 haftalık tam erişim</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product3Package" value="30">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">30 Günlük Paket</span>
+<span class="font-bold text-primary">₺999</span>
+</div>
+<p class="text-sm text-gray-500">1 aylık tam erişim (₺600 tasarruf)</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product3Package" value="90">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">90 Günlük Paket</span>
+<span class="font-bold text-primary">₺2.499</span>
+</div>
+<p class="text-sm text-gray-500">3 aylık tam erişim (₺2.000 tasarruf)</p>
+</div>
+</label>
+</div>
+</div>
+<a href="https://discord.gg/amınoğlucheats" target="_blank" class="block w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 !rounded-button transition-all text-center whitespace-nowrap">
+<i class="ri-shopping-cart-2-line ri-sm mr-1"></i> Hemen Satın Al
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Product 4 Modal -->
+<div id="product4Modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="product4Backdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeProduct4Modal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2">
+<div class="h-64 md:h-full overflow-hidden relative">
+<img src="https://r2.fakecrime.bio/uploads/c596e8f3-8b5f-47de-948f-b03f23261966.jpeg" alt="Racing Extreme" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent md:bg-gradient-to-r"></div>
+</div>
+</div>
+<div class="md:w-1/2 p-6 md:p-8">
+<span class="inline-block bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full mb-4">Premium</span>
+<h3 class="text-2xl font-bold mb-2">Racing Extreme</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-half-fill ri-sm"></i>
+</div>
+<span class="ml-2 text-sm text-gray-500">4.5/5 (142 değerlendirme)</span>
+</div>
+<p class="text-gray-400 mb-6">
+Racing Extreme, yarış oyunlarında rakiplerinize karşı üstünlük sağlayan gelişmiş bir hile paketidir. Hız hilesi, otomatik drift ve kusursuz sürüş asistanı içerir.
+</p>
+<div class="mb-6">
+<h4 class="font-bold mb-2">Özellikler:</h4>
+<ul class="space-y-2 text-gray-400">
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Hız Hilesi (Araç hızını artırma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Otomatik Drift (Kusursuz drift yapma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Kusursuz Sürüş Asistanı (Otomatik viraj alma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Sınırsız Nitro (Sürekli nitro kullanımı)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Çarpışma Önleme (Diğer araçlarla çarpışmayı engelleme)</span>
+</li>
+</ul>
+</div>
+<div class="mb-6">
+<h4 class="font-bold mb-3">Paket Seçin:</h4>
+<div class="space-y-3">
+<label class="custom-radio block">
+<input type="radio" name="product4Package" value="7" checked>
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">7 Günlük Paket</span>
+<span class="font-bold text-primary">₺349</span>
+</div>
+<p class="text-sm text-gray-500">1 haftalık tam erişim</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product4Package" value="30">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">30 Günlük Paket</span>
+<span class="font-bold text-primary">₺899</span>
+</div>
+<p class="text-sm text-gray-500">1 aylık tam erişim (₺500 tasarruf)</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product4Package" value="90">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">90 Günlük Paket</span>
+<span class="font-bold text-primary">₺1.999</span>
+</div>
+<p class="text-sm text-gray-500">3 aylık tam erişim (₺1.800 tasarruf)</p>
+</div>
+</label>
+</div>
+</div>
+<a href="https://discord.gg/amınoğlucheats" target="_blank" class="block w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 !rounded-button transition-all text-center whitespace-nowrap">
+<i class="ri-shopping-cart-2-line ri-sm mr-1"></i> Hemen Satın Al
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Product 5 Modal -->
+<div id="product5Modal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="product5Backdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-4xl rounded-lg shadow-2xl overflow-hidden">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeProduct5Modal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="flex flex-col md:flex-row">
+<div class="md:w-1/2">
+<div class="h-64 md:h-full overflow-hidden relative">
+<img src="https://r2.fakecrime.bio/uploads/f57e08a1-abb5-4612-ab4f-f7184b25ee2f.jpeg" alt="Sports Elite" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-darker to-transparent md:bg-gradient-to-r"></div>
+</div>
+</div>
+<div class="md:w-1/2 p-6 md:p-8">
+<span class="inline-block bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded-full mb-4">Premium</span>
+<h3 class="text-2xl font-bold mb-2">Sports Elite</h3>
+<div class="flex items-center mb-4">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-fill ri-sm"></i>
+<i class="ri-star-line ri-sm"></i>
+</div>
+<span class="ml-2 text-sm text-gray-500">4.0/5 (98 değerlendirme)</span>
+</div>
+<p class="text-gray-400 mb-6">
+Sports Elite, spor oyunlarında rakiplerinize karşı üstünlük sağlayan gelişmiş bir hile paketidir. Oyuncu özelliklerini maksimuma çıkaran ve kusursuz vuruş sağlayan özellikler içerir.
+</p>
+<div class="mb-6">
+<h4 class="font-bold mb-2">Özellikler:</h4>
+<ul class="space-y-2 text-gray-400">
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Oyuncu Özellikleri Artırma (Hız, güç, dayanıklılık vb.)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Kusursuz Vuruş (Her vuruşu gole çevirme)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Otomatik Skill Hareketleri (Kompleks hareketleri otomatik yapma)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Rakip Analizi (Rakibin zayıf noktalarını gösterme)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-check-line ri-sm text-primary mt-1 mr-2"></i>
+<span>Yorgunluk Önleme (Oyuncuların yorulmasını engelleme)</span>
+</li>
+</ul>
+</div>
+<div class="mb-6">
+<h4 class="font-bold mb-3">Paket Seçin:</h4>
+<div class="space-y-3">
+<label class="custom-radio block">
+<input type="radio" name="product5Package" value="7" checked>
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">7 Günlük Paket</span>
+<span class="font-bold text-primary">₺449</span>
+</div>
+<p class="text-sm text-gray-500">1 haftalık tam erişim</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product5Package" value="30">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">30 Günlük Paket</span>
+<span class="font-bold text-primary">₺1.199</span>
+</div>
+<p class="text-sm text-gray-500">1 aylık tam erişim (₺650 tasarruf)</p>
+</div>
+</label>
+<label class="custom-radio block">
+<input type="radio" name="product5Package" value="90">
+<span class="radio-checkmark"></span>
+<div class="ml-8">
+<div class="flex justify-between">
+<span class="font-medium">90 Günlük Paket</span>
+<span class="font-bold text-primary">₺2.799</span>
+</div>
+<p class="text-sm text-gray-500">3 aylık tam erişim (₺2.250 tasarruf)</p>
+</div>
+</label>
+</div>
+</div>
+<a href="https://discord.gg/amınoğlucheats" target="_blank" class="block w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 !rounded-button transition-all text-center whitespace-nowrap">
+<i class="ri-shopping-cart-2-line ri-sm mr-1"></i> Hemen Satın Al
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Refund Policy Modal -->
+<div id="refundPolicyModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="refundPolicyBackdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-2xl rounded-lg shadow-2xl overflow-hidden glass-effect">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeRefundPolicyModal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="p-6 md:p-8">
+<h3 class="text-2xl font-bold mb-6 text-center neon-text">İade Politikası</h3>
+<div class="text-gray-300 space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+<p>
+Amınoğlu Cheats olarak, müşteri memnuniyetini en üst düzeyde tutmayı hedefliyoruz. Ancak, ürünlerimizin dijital doğası gereği, satın alma işlemi tamamlandıktan sonra iade kabul etmiyoruz.
+</p>
+<h4 class="text-lg font-bold mt-6">İade Koşulları</h4>
+<p>
+Aşağıdaki durumlarda, satın alma tarihinden itibaren 24 saat içinde destek ekibimizle iletişime geçmeniz halinde, durumunuzu değerlendirmeye alacağız:
+</p>
+<ul class="list-disc pl-6 space-y-2">
+<li>Ürün, açıklamada belirtilen özellikleri içermiyorsa</li>
+<li>Ürün, teknik nedenlerden dolayı çalışmıyorsa</li>
+<li>Satın alma işlemi sırasında teknik bir hata oluştuysa</li>
+</ul>
+<p>
+Bu durumlarda, sorunu çözmek için öncelikle teknik destek sağlamayı hedefliyoruz. Sorun çözülemezse, aşağıdaki seçeneklerden birini sunabiliriz:
+</p>
+<ul class="list-disc pl-6 space-y-2">
+<li>Eşdeğer bir ürünle değişim</li>
+<li>Site kredisi olarak iade</li>
+<li>İstisnai durumlarda, tam para iadesi</li>
+</ul>
+<h4 class="text-lg font-bold mt-6">İade Edilemeyecek Durumlar</h4>
+<p>
+Aşağıdaki durumlarda iade kabul edilmemektedir:
+</p>
+<ul class="list-disc pl-6 space-y-2">
+<li>Satın alma işleminden 24 saat geçtikten sonra yapılan iade talepleri</li>
+<li>Ürünün kullanılmış olması (hesabınızda aktif olarak kullanıldığı tespit edilmesi)</li>
+<li>Oyun güncellemesi sonrası ürünün geçici olarak çalışmaması (bu durumda en kısa sürede güncelleme yapılacaktır)</li>
+<li>Hesabınızın oyun şirketi tarafından banlanması (hilelerimiz tespit edilemez olsa da, kullanım şeklinize bağlı olarak ban riski her zaman vardır)</li>
+</ul>
+<h4 class="text-lg font-bold mt-6">İade Süreci</h4>
+<p>
+İade talebinde bulunmak için:
+</p>
+<ol class="list-decimal pl-6 space-y-2">
+<li>Discord sunucumuza katılın</li>
+<li>"destek-talebi" kanalından bir talep oluşturun</li>
+<li>Satın alma kanıtınızı ve iade talebinizin nedenini belirtin</li>
+<li>Destek ekibimiz en kısa sürede sizinle iletişime geçecektir</li>
+</ol>
+<p class="mt-6">
+Tüm iade talepleri, duruma göre değerlendirilir ve nihai karar ahmetcevikvalorant yönetimine aittir. İade politikamız hakkında herhangi bir sorunuz varsa, lütfen destek ekibimizle iletişime geçmekten çekinmeyin.
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Contact Modal -->
+<div id="contactModal" class="modal fixed inset-0 z-50 flex items-center justify-center p-4">
+<div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm" id="contactBackdrop"></div>
+<div class="modal-content relative bg-darker w-full max-w-xl rounded-lg shadow-2xl overflow-hidden neon-border">
+<button class="absolute top-4 right-4 text-gray-400 hover:text-white z-10 w-8 h-8 flex items-center justify-center" id="closeContactModal">
+<i class="ri-close-line ri-lg"></i>
+</button>
+<div class="p-6 md:p-8">
+<h3 class="text-2xl font-bold mb-6 text-center neon-text">Bize Ulaşın</h3>
+<form class="space-y-4">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-400 mb-1">Adınız</label>
+<input type="text" id="name" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary">
+</div>
+<div>
+<label for="email" class="block text-sm font-medium text-gray-400 mb-1">E-posta Adresiniz</label>
+<input type="email" id="email" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary">
+</div>
+<div>
+<label for="subject" class="block text-sm font-medium text-gray-400 mb-1">Konu</label>
+<select id="subject" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary pr-8 appearance-none">
+<option value="">Seçiniz</option>
+<option value="support">Teknik Destek</option>
+<option value="sales">Satış Öncesi Sorular</option>
+<option value="refund">İade Talebi</option>
+<option value="partnership">İş Birliği</option>
+<option value="other">Diğer</option>
+</select>
+<div class="relative">
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div>
+<label for="message" class="block text-sm font-medium text-gray-400 mb-1">Mesajınız</label>
+<textarea id="message" rows="4" class="w-full bg-dark border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-primary"></textarea>
+</div>
+<button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 px-6 !rounded-button transition-all whitespace-nowrap">
+Gönder
+</button>
+</form>
+<div class="mt-6 pt-6 border-t border-gray-800">
+<p class="text-gray-400 text-center">
+Ayrıca bize aşağıdaki kanallardan da ulaşabilirsiniz:
+</p>
+<div class="flex justify-center space-x-4 mt-4">
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-discord-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-telegram-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-mail-fill ri-lg"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Scripts -->
+<script id="loadingScript">
+document.addEventListener('DOMContentLoaded', function() {
+// Loading screen with smooth transition
+const loadingScreen = document.getElementById('loadingScreen');
+loadingScreen.style.transition = 'opacity 0.8s ease-out';
+setTimeout(function() {
+loadingScreen.style.opacity = '0';
+setTimeout(function() {
+loadingScreen.style.display = 'none';
+}, 800);
+}, 1500);
+// Add micro-interactions
+document.querySelectorAll('button, a').forEach(element => {
+element.addEventListener('mouseenter', function() {
+this.style.transform = 'translateY(-2px)';
+this.style.transition = 'all 0.2s ease';
+});
+element.addEventListener('mouseleave', function() {
+this.style.transform = 'translateY(0)';
+});
+element.addEventListener('click', function() {
+this.style.transform = 'scale(0.95)';
+setTimeout(() => {
+this.style.transform = 'scale(1)';
+}, 150);
+});
+});
+// Smooth button hover effect
+document.querySelectorAll('.bg-primary').forEach(button => {
+button.addEventListener('mouseenter', function() {
+this.style.boxShadow = '0 8px 20px -8px rgba(142, 68, 173, 0.5)';
+});
+button.addEventListener('mouseleave', function() {
+this.style.boxShadow = 'none';
+});
+});
+});
+</script>
+<script id="navigationScript">
+document.addEventListener('DOMContentLoaded', function() {
+const mainHeader = document.getElementById('mainHeader');
+const navContainer = document.getElementById('navContainer');
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let lastScrollTop = 0;
+let isMenuOpen = false;
+// Handle scroll events for navbar animation
+window.addEventListener('scroll', function() {
+const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+mainHeader.style.transform = 'translateY(0)';
+navContainer.classList.add('h-20');
+});
+// Mobile menu toggle with animation
+mobileMenuBtn.addEventListener('click', function() {
+isMenuOpen = !isMenuOpen;
+if (isMenuOpen) {
+mobileMenu.style.transform = 'translateY(0)';
+this.innerHTML = '<i class="ri-close-line ri-lg"></i>';
+} else {
+mobileMenu.style.transform = 'translateY(-100%)';
+this.innerHTML = '<i class="ri-menu-line ri-lg"></i>';
+}
+});
+// Close mobile menu when clicking on a link
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+link.addEventListener('click', function() {
+mobileMenu.classList.add('hidden');
+});
+});
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+if (targetId === '#') return;
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 80,
+behavior: 'smooth'
+});
+}
+});
+});
+});
+</script>
+<script id="productSliderScript">
+document.addEventListener('DOMContentLoaded', function() {
+const productSlider = document.getElementById('productSlider');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+// Product slider navigation
+nextBtn.addEventListener('click', function() {
+productSlider.scrollBy({
+left: 400,
+behavior: 'smooth'
+});
+});
+prevBtn.addEventListener('click', function() {
+productSlider.scrollBy({
+left: -400,
+behavior: 'smooth'
+});
+});
+});
+</script>
+<script id="modalScript">
+document.addEventListener('DOMContentLoaded', function() {
+// Product detail modals
+const productDetailBtns = document.querySelectorAll('.product-detail-btn');
+productDetailBtns.forEach(btn => {
+btn.addEventListener('click', function() {
+const productId = this.getAttribute('data-product');
+const modal = document.getElementById(productId + 'Modal');
+modal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+});
+// Close product modals
+for (let i = 1; i <= 5; i++) {
+const closeBtn = document.getElementById('closeProduct' + i + 'Modal');
+const backdrop = document.getElementById('product' + i + 'Backdrop');
+const modal = document.getElementById('product' + i + 'Modal');
+if (closeBtn && backdrop && modal) {
+closeBtn.addEventListener('click', function() {
+modal.classList.remove('active');
+document.body.style.overflow = '';
+});
+backdrop.addEventListener('click', function() {
+modal.classList.remove('active');
+document.body.style.overflow = '';
+});
+}
+}
+// Refund policy modal
+const refundPolicyBtn = document.getElementById('refundPolicyBtn');
+const refundPolicyFooterBtn = document.getElementById('refundPolicyFooterBtn');
+const refundPolicyFooterBtn2 = document.getElementById('refundPolicyFooterBtn2');
+const refundPolicyModal = document.getElementById('refundPolicyModal');
+const closeRefundPolicyModal = document.getElementById('closeRefundPolicyModal');
+const refundPolicyBackdrop = document.getElementById('refundPolicyBackdrop');
+[refundPolicyBtn, refundPolicyFooterBtn, refundPolicyFooterBtn2].forEach(btn => {
+if (btn) {
+btn.addEventListener('click', function(e) {
+e.preventDefault();
+refundPolicyModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+}
+});
+if (closeRefundPolicyModal) {
+closeRefundPolicyModal.addEventListener('click', function() {
+refundPolicyModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+}
+if (refundPolicyBackdrop) {
+refundPolicyBackdrop.addEventListener('click', function() {
+refundPolicyModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+}
+// Contact modal
+const contactBtn = document.getElementById('contactBtn');
+const contactModal = document.getElementById('contactModal');
+const closeContactModal = document.getElementById('closeContactModal');
+const contactBackdrop = document.getElementById('contactBackdrop');
+if (contactBtn) {
+contactBtn.addEventListener('click', function(e) {
+e.preventDefault();
+contactModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+}
+if (closeContactModal) {
+closeContactModal.addEventListener('click', function() {
+contactModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+}
+if (contactBackdrop) {
+contactBackdrop.addEventListener('click', function() {
+contactModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+}
+});
+</script>
+<script id="faqScript">
+document.addEventListener('DOMContentLoaded', function() {
+// FAQ accordion
+const faqToggles = document.querySelectorAll('.faq-toggle');
+faqToggles.forEach(toggle => {
+toggle.addEventListener('click', function() {
+const faqItem = this.parentElement;
+const isActive = faqItem.classList.contains('active');
+// Close all FAQ items
+document.querySelectorAll('.faq-item').forEach(item => {
+item.classList.remove('active');
+const icon = item.querySelector('.faq-icon');
+if (icon) {
+icon.style.transform = 'rotate(0deg)';
+}
+});
+// Open clicked FAQ item if it was not active
+if (!isActive) {
+faqItem.classList.add('active');
+const icon = this.querySelector('.faq-icon');
+if (icon) {
+icon.style.transform = 'rotate(180deg)';
+}
+}
+});
+});
+});
+</script>
+</body>
+</html>
